@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+body { background: #0A0A0A; color: #F2EFE9; font-family: 'JetBrains Mono', ui-monospace, monospace; overflow-x: hidden; }
+::selection { background: #FF5500; color: #0A0A0A; }
+
+.glitching { animation: glitch-skew .35s steps(2, end) 1; text-shadow: 2px 0 #FF5500, -2px 0 #00E5FF; }
+@keyframes glitch-skew {
+  0% { transform: translate(0); } 20% { transform: translate(-3px, 1px) skewX(-6deg); }
+  40% { transform: translate(3px, -1px) skewX(5deg); } 60% { transform: translate(-2px, 0) skewX(-3deg); }
+  80% { transform: translate(2px, 1px); } 100% { transform: none; }
+}
+.glitch-btn:hover { animation: glitch-skew .3s steps(2, end) infinite; text-shadow: 2px 0 #FF5500, -2px 0 #00E5FF; }
+.verify-pulse { animation: pulse-ring 1.6s infinite; }
+@keyframes pulse-ring { 0% { box-shadow: 4px 4px 0 #FF5500, 0 0 0 0 rgba(255,85,0,.6); } 100% { box-shadow: 4px 4px 0 #FF5500, 0 0 0 18px rgba(255,85,0,0); } }
+
+.scanlines { background: repeating-linear-gradient(0deg, rgba(242,239,233,.06) 0 1px, transparent 1px 4px); animation: flicker 3s infinite steps(1); }
+@keyframes flicker { 0%, 92%, 100% { opacity: 1; } 93% { opacity: .2; } 95% { opacity: .8; } 97% { opacity: .1; } }
+.bust-over canvas { filter: drop-shadow(4px 0 #FF5500) drop-shadow(-4px 0 #00E5FF); animation: tear .18s steps(2) infinite; }
+@keyframes tear { 0% { transform: translateX(-3px); clip-path: inset(0 0 55% 0); } 50% { transform: translateX(4px); clip-path: inset(40% 0 0 0); } 100% { transform: none; clip-path: none; } }
+
+.cube { transform-style: preserve-3d; animation: spin 9s linear infinite; }
+.cube div { position: absolute; inset: 0; border: 1px solid #FF5500; background: rgba(255,85,0,.06); }
+@keyframes spin { to { transform: rotateX(360deg) rotateY(360deg); } }
+
+.glass { background: rgba(242,239,233,.05); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(242,239,233,.18); box-shadow: 0 0 32px rgba(204,255,0,.12), inset 0 0 24px rgba(242,239,233,.04); }
+
+@media (prefers-reduced-motion: reduce) {
+  .glitching, .glitch-btn:hover, .verify-pulse, .scanlines, .bust-over canvas, .cube { animation: none; text-shadow: none; }
+  html { scroll-behavior: auto; }
+}
